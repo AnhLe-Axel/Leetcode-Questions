@@ -1,28 +1,20 @@
 from typing import List
 
 class Solution:
-    def threeSum(self, nums: List[int]) -> List[List[int]]:
-        nums.sort()
-        res = []
-        for i in range(len(nums) - 2):
-            if i > 0 and nums[i] == nums[i - 1]:
-                continue
-            left, right = i + 1, len(nums) - 1
-            while left < right:
-                if nums[left] + nums[right] + nums[i] == 0:
-                    res.append([nums[i], nums[left], nums[right]])
-                    left += 1
-                    right -= 1
-                    while left < right and nums[left] == nums[left - 1]:
-                        left += 1
-                        while left < right and nums[right] == nums[right + 1]:
-                            right -= 1
-                elif nums[left] + nums[right] + nums[i] < 0:
-                    left += 1
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        max = 0
+        if len(s) == 0:
+            return 0
+        for i in range(len(s)-1):
+            count = 1
+            for j in range(i + 1, len(s)):
+                if s[j] in s[i:j]:
+                    if count > max: 
+                        max = count
+                        break
                 else:
-                    right -= 1
-
-        return res
+                    count += 1
+        return max
 
 sol = Solution()
-print(sol.threeSum([-1,0,1,2,-1,-4]))
+print(sol.lengthOfLongestSubstring("pwwkew"))

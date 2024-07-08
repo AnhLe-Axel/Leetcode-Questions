@@ -1,32 +1,28 @@
 from typing import List
 
 class Solution:
-    def fullJustify(self, words: List[str], maxWidth: int) -> List[str]:
-        lines = []
-        spaces = []
-        row = 0
-        count = maxWidth
-        lines.append([])
-        for word in words:
-            if count - len(word) < 0:
-                spaces.append(count + 1)
-                count = maxWidth
-                lines.append([])
-                row += 1
-            lines[row].append(word + ' ')
-            count -= len(word) + 1
-        spaces.append(count + 1)
- 
-        for i in range(len(lines)):
-            if len(lines[i]) > 1:
-                for j in range(spaces[i]):
-                    lines[i][j%(len(lines[i])-1)] += ' '
-            else:
-                for j in range(spaces[i]):
-                    lines[i][0] += ' '
-            lines[i] = ''.join(lines[i])[0:maxWidth]
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
+        nums.sort()
+        res = []
+        for i in range(len(nums) - 2):
+            if i > 0 and nums[i] == nums[i - 1]:
+                continue
+            left, right = i + 1, len(nums) - 1
+            while left < right:
+                if nums[left] + nums[right] + nums[i] == 0:
+                    res.append([nums[i], nums[left], nums[right]])
+                    left += 1
+                    right -= 1
+                    while left < right and nums[left] == nums[left - 1]:
+                        left += 1
+                        while left < right and nums[right] == nums[right + 1]:
+                            right -= 1
+                elif nums[left] + nums[right] + nums[i] < 0:
+                    left += 1
+                else:
+                    right -= 1
 
-        return lines
+        return res
 
 sol = Solution()
-print(sol.fullJustify(["Science","is","what","we","understand","well","enough","to","explain","to","a","computer.","Art","is","everything","else","we","do"], 20))    
+print(sol.threeSum([-1,0,1,2,-1,-4]))

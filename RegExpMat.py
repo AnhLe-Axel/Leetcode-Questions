@@ -8,12 +8,14 @@ class Solution:
             if len(p) <= 1:
                 return False
             elif p[1] == "*":
-                s_index = 0
-                while s_index < len(s) and (s[s_index] == p[0] or p[0] == "."):
-                    s_index += 1
-                for i in range(0, s_index + 1):
-                    if self.isMatch(s[i:], p[2:]):
-                        return True
+                index = 0
+                while index < len(s) and s[index] == p[0]:
+                    index += 1
+                if index > 0:
+                    for i in range(1, index + 1):
+                        if self.isMatch(s[i:], p[2:]):
+                            return True
+                return self.isMatch(s[index:], p[2:])
             else:
                 if s[0] == p[0] or p[0] == ".":
                     return self.isMatch(s[1:], p[1:])
@@ -28,4 +30,4 @@ class Solution:
                     return self.isMatch(s, p[2:])
 
 sol = Solution()
-print(sol.isMatch("aaaaa", "a*a*a*a*a*b"))
+print(sol.isMatch("aaa", "ab*ac*a"))
